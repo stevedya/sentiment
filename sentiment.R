@@ -14,33 +14,6 @@
 # install.packages("AFINN-111", repos = "http://cran.us.r-project.org")
 # install.packages("textdata", repos = "http://cran.us.r-project.org")
 
-# library(syuzhet)
-# library(lubridate)
-# library(ggplot2)
-# # library(scales)
-# # library(reshape2)
-# library(dplyr)
-# library(tidytext)
-# library(readr)
-
-# # read file
-# tweets <- read.csv('apple.csv')
-# corpus <- iconv(tweets$text, to = "utf-8-mac")
-
-# text_lines <- tibble(text = corpus)
-
-# single_words <- unnest_tokens(text_lines, word, text)
-
-# single_words <- text_lines %>%
-#     unnest_tokens(word, text)
-
-# print(single_words)
-
-# # corpus <- iconv(tweetes$text, to = "utf-8-mac")
-# # corpus <- Corpus(VectorSource(corpus))
-# # inspect(corpus[1:5])
-
-# # s <- get_nrc_sentiment(t)
 
 
 library(dplyr)
@@ -84,7 +57,6 @@ result <- single_words %>%
 
 
 print(result)
-
 
 
 #stemm
