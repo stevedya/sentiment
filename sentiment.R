@@ -14,8 +14,6 @@
 # install.packages("AFINN-111", repos = "http://cran.us.r-project.org")
 # install.packages("textdata", repos = "http://cran.us.r-project.org")
 
-
-
 library(dplyr)
 library(readr)
 library(tidytext)
@@ -25,9 +23,16 @@ library(tidyverse)
 library(tm)
 library(textdata)
 
+#Path 
+filepath <- "/Users/BrettCloutier/Desktop/Analysis/"
+filename <- "open-ended.csv" 
+exportafinn <- "open-ended-afinn.csv"
+exportbing <- "open-ended-bing.csv"
+exportnrc <- "open-ended-nrc.csv"
+
 #Pull the file 
-tweets <- read.csv('apple.csv')
-corpus <- iconv(tweets$text, to = "utf-8-mac")
+dirty <- read.csv(paste(filepath,filename,sep=""))
+corpus <- iconv(dirty$text, to = "utf-8-mac")
 text_lines <- Corpus(VectorSource(corpus))
 
 # Convert to lowercase 
@@ -52,12 +57,22 @@ text_lines <- tibble(text = corpus)
 # Convert to single words column
 single_words <- unnest_tokens(text_lines, word, text)
 
-result <- single_words %>%
-  inner_join(get_sentiments("afinn"))
+resultafinn <- single_words %>% 
+  inner_join(get_sentiments("afinn")) 
 
+resultbing <- single_words %>%
+  inner_join(get_sentiments("bing")) 
 
-print(result)
+resultnrc <- single_words %>%
+  inner_join(get_sentiments("nrc")) 
 
+print(resultafinn)
+print(resultbing)
+print(resultnrc)
+
+write.csv(resultafinn, file=paste(filepath,exportafinn,sep=""))
+write.csv(resultbing, file=paste(filepath,exportbing,sep=""))
+write.csv(resultnrc, file=paste(filepath,exportnrc,sep=""))
 
 #stemm
 # stemmed <- single_words %>%
@@ -65,4 +80,3 @@ print(result)
 
 
 # stemmed_words <- stemmed[,2]
-
